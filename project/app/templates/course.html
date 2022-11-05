@@ -1,0 +1,7 @@
+{% block content %}
+{% for i in data %}
+{{i.course_name}}
+{{i.course_detail}}
+<img src="{{ i.cover_image.url }}">
+{% endfor %}
+{% endblock %}

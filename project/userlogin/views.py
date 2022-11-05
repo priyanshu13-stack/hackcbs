@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-# Create your views here.
+from .decorators import unauthenticated_user
 
+
+# Create your views here.
+@unauthenticated_user
 def register(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -19,6 +21,7 @@ def register(request):
     }
     return render(request, "userlogin/register.html", context)
 
+@unauthenticated_user
 def ulogin(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -33,7 +36,9 @@ def ulogin(request):
 
     return render(request, "userlogin/login.html")
 
+
 def ulogout(request):
     logout(request)
     return redirect('userlogin:ulogin')
+
 
