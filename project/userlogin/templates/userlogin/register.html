@@ -1,0 +1,12 @@
+<h3>Register</h3>
+
+<form method="post" action="">
+    {% csrf_token %}
+    {% for i in form %}
+      <br>
+        {{i.label}}
+        {{i}}
+    {% endfor %}
+    <br>
+    <input type="submit" name="Register">
+</form>
