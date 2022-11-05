@@ -33,3 +33,7 @@ def ulogin(request):
 
     return render(request, "userlogin/login.html")
 
+def ulogout(request):
+    logout(request)
+    return redirect('userlogin:ulogin')
+
