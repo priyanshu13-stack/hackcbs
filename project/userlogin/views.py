@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import CreateUserForm
+from .forms import CreateUserForm, AuthorizationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from .decorators import unauthenticated_user
@@ -41,4 +41,15 @@ def ulogout(request):
     logout(request)
     return redirect('userlogin:ulogin')
 
+def authorize(request):
+    frm = AuthorizationForm()
+    if request.method == "POST":
+        frm = AuthorizationForm(request.POST)
+        if frm.is_valid():
+            frm.save()
+            return redirect('app:index')
+    context = {
+        "frm": frm,
+    }
+    return render(request, "userlogin/authorize.html", context)
 
