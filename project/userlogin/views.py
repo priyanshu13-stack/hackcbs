@@ -3,10 +3,11 @@ from .forms import CreateUserForm, AuthorizationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from .decorators import unauthenticated_user
+from .models import authorization
 
 
 # Create your views here.
-@unauthenticated_user
+
 def register(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -14,14 +15,14 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Account Created Successfully")
-            return redirect('userlogin:ulogin')
+            return redirect('userlogin:authorize')
 
     context = {
         "form" : form
     }
     return render(request, "userlogin/register.html", context)
 
-@unauthenticated_user
+
 def ulogin(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -39,7 +40,7 @@ def ulogin(request):
 
 def ulogout(request):
     logout(request)
-    return redirect('userlogin:ulogin')
+    return redirect('app:index')
 
 def authorize(request):
     frm = AuthorizationForm()
@@ -47,9 +48,18 @@ def authorize(request):
         frm = AuthorizationForm(request.POST)
         if frm.is_valid():
             frm.save()
-            return redirect('app:index')
+            return redirect('userlogin:ulogin')
     context = {
         "frm": frm,
     }
     return render(request, "userlogin/authorize.html", context)
+
+def connect(request):
+    dic = authorization.objects.all()
+    context = {
+        "dic" : dic,
+    }
+    return render(request, 'userlogin/connect.html', context)
+
+
 
