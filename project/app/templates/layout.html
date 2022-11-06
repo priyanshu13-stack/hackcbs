@@ -45,9 +45,9 @@
         <ul>
           <li><a class="nav-link scrollto active" href="{% url 'app:index' %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#courses">Courses</a></li>
-          <li><a class="nav-link   scrollto" href="{% url 'userlogin:connect' %}">Connect</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link   scrollto" href="{% url 'userlogin:connect' %}">Connect</a></li>
           {% if request.user.is_authenticated  %}
           <li><a class="nav-link scrollto" >Hello, {{user}}</a></li>
           {% endif %}
