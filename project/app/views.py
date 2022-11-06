@@ -7,9 +7,6 @@ from .decorators import unauthenticated_user
 
 # @login_required(login_url='userlogin/ulogin')
 def index(request):
-    return render(request, "index.html")
-
-def course_data(request):
     data = course.objects.all()
     context ={
         "data" : data,
